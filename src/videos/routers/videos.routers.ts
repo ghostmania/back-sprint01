@@ -37,6 +37,7 @@ videosRouter
       res.status(HttpStatus.BadRequest).send(createErrorMessages(errors));
       return;
     }
+    let date = Date.now();
 
     const newVideo: Video = {
       id: db.videos.length ? db.videos[db.videos.length - 1].id + 1 : 1,
@@ -45,8 +46,8 @@ videosRouter
       canBeDownloaded: req.body.canBeDownloaded ?? false,
       minAgeRestriction: req.body.minAgeRestriction,
       availableResolutions: req.body.availableResolutions,
-      createdAt: new Date().toISOString(),
-      publicationDate: resolvePublicationDate(new Date()),
+      createdAt: new Date(date).toISOString(),
+      publicationDate: resolvePublicationDate(date),
     };
     db.videos.push(newVideo);
     res.status(HttpStatus.Created).send(newVideo);

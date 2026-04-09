@@ -10,7 +10,7 @@ export const videoInputDtoValidation = (
   if (
     !data.title ||
     typeof data.title !== 'string' ||
-    data.title.trim().length > 40
+    data.title && data.title.trim().length > 40
   ) {
     errors.push({ field: 'title', message: 'Invalid title' });
   }
@@ -39,15 +39,17 @@ export const videoInputDtoValidation = (
     });
   }
 
-    if (data.publicationDate && typeof data.publicationDate !== 'string' ||
-    Number(data.createdAt) > Number(resolvePublicationDate(new Date(data.publicationDate)))) {
+    if (data.publicationDate && typeof data.publicationDate !== 'string' || data.publicationDate &&
+    Number(data.createdAt) > Number(resolvePublicationDate(new Date(data.publicationDate).getTime()))) {
+      console.log('invalid publicationDate');
       errors.push({
         field: 'publicationDate',
         message: 'Invalid publicationDate',
       });
     }
 
-  if (!data.availableResolutions || !Array.isArray(data.availableResolutions)) {
+  if (!data.availableResolutions || !Array.isArray(data.availableResolutions) ||
+  !data.availableResolutions.length) {
     errors.push({
       field: 'availableResolutions',
       message: 'availableResolutions must be array',
@@ -77,8 +79,8 @@ export const videoInputDtoValidation = (
   return errors;
 };
 
-export function resolvePublicationDate(date:Date): string{
+export function resolvePublicationDate(date:number): string{
   let addition = 24*60*60*1000;
-  let oneDayLater = date.getTime() +addition;
+  let oneDayLater = date+ addition;
   return new Date(oneDayLater).toISOString();
 }
