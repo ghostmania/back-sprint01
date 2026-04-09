@@ -10,33 +10,28 @@ export const videoInputDtoValidation = (
   if (
     !data.title ||
     typeof data.title !== 'string' ||
-    data.title.trim().length < 2 ||
-    data.title.trim().length > 15
+    data.title.trim().length > 40
   ) {
     errors.push({ field: 'title', message: 'Invalid title' });
   }
 
   if (
     !data.author ||
-    typeof data.author !== 'string' ||
-    data.author.trim().length < 2 ||
-    data.author.trim().length > 15
+    typeof data.author !== 'string'
   ) {
     errors.push({ field: 'author', message: 'Invalid author' });
   }
 
-  // if (typeof data.canBeDownloaded !== 'boolean') {
-  //   errors.push({
-  //     field: 'canBeDownloaded',
-  //     message: 'Invalid canBeDownloaded',
-  //   });
-  // }
+  if (data.canBeDownloaded && typeof data.canBeDownloaded !== 'boolean') {
+    errors.push({
+      field: 'canBeDownloaded',
+      message: 'Invalid canBeDownloaded',
+    });
+  }
 
   if (
-    // !data.minAgeRestriction ||
-    (typeof data.minAgeRestriction === 'number' &&
+    (data.minAgeRestriction && typeof data.minAgeRestriction === 'number' &&
       (data.minAgeRestriction > 18 || data.minAgeRestriction < 1))
-    // typeof data.minAgeRestriction !== null
   ) {
     errors.push({
       field: 'minAgeRestriction',
@@ -44,18 +39,15 @@ export const videoInputDtoValidation = (
     });
   }
 
-  //   if (!data.createdAt || typeof data.createdAt !== 'string') {
-  //     errors.push({ field: 'createdAt', message: 'Invalid createdAt' });
-  //   }
+    if (data.publicationDate && typeof data.publicationDate !== 'string' ||
+    Number(data.createdAt) > Number(resolvePublicationDate(new Date(data.publicationDate)))) {
+      errors.push({
+        field: 'publicationDate',
+        message: 'Invalid publicationDate',
+      });
+    }
 
-  //   if (!data.publicationDate || typeof data.publicationDate !== 'string') {
-  //     errors.push({
-  //       field: 'publicationDate',
-  //       message: 'Invalid publicationDate',
-  //     });
-  //   }
-
-  if (!Array.isArray(data.availableResolutions)) {
+  if (!data.availableResolutions || !Array.isArray(data.availableResolutions)) {
     errors.push({
       field: 'availableResolutions',
       message: 'availableResolutions must be array',
@@ -84,3 +76,9 @@ export const videoInputDtoValidation = (
 
   return errors;
 };
+
+export function resolvePublicationDate(date:Date): string{
+  let addition = 24*60*60*1000;
+  let oneDayLater = date.getTime() +addition;
+  return new Date(oneDayLater).toISOString();
+}

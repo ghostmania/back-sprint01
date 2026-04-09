@@ -2,7 +2,10 @@ import { Router, Request, Response } from 'express';
 import { db } from '../../db/videos.db';
 import { HttpStatus } from '../../core/types/http-statuses';
 import { VideoInputDto } from '../dto/video.input-dto';
-import { videoInputDtoValidation } from '../validation/videoInputDtoValidation';
+import {
+  resolvePublicationDate,
+  videoInputDtoValidation,
+} from '../validation/videoInputDtoValidation';
 import { createErrorMessages } from '../../core/utils/error.utils';
 import { Video } from '../types/video';
 
@@ -39,11 +42,11 @@ videosRouter
       id: db.videos.length ? db.videos[db.videos.length - 1].id + 1 : 1,
       title: req.body.title,
       author: req.body.author,
-      canBeDownloaded: req.body.canBeDownloaded ?? true,
+      canBeDownloaded: req.body.canBeDownloaded ?? false,
       minAgeRestriction: req.body.minAgeRestriction,
       availableResolutions: req.body.availableResolutions,
-      createdAt: req.body.createdAt,
-      publicationDate: req.body.publicationDate,
+      createdAt: new Date().toISOString(),
+      publicationDate: resolvePublicationDate(new Date()),
     };
     db.videos.push(newVideo);
     res.status(HttpStatus.Created).send(newVideo);
@@ -61,15 +64,15 @@ videosRouter
         );
       return;
     }
+    const driver = db.videos[index];
 
-    const errors = videoInputDtoValidation(req.body);
+    const errors = videoInputDtoValidation({...req.body, createdAt: driver.createdAt});
 
     if (errors.length > 0) {
       res.status(HttpStatus.BadRequest).send(createErrorMessages(errors));
       return;
     }
 
-    const driver = db.videos[index];
 
     driver.title = req.body.title;
     driver.author = req.body.author;
