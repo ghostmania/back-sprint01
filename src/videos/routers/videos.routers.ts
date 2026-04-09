@@ -44,7 +44,7 @@ videosRouter
       title: req.body.title,
       author: req.body.author,
       canBeDownloaded: req.body.canBeDownloaded ?? false,
-      minAgeRestriction: req.body.minAgeRestriction,
+      minAgeRestriction: req.body.minAgeRestriction ?? null,
       availableResolutions: req.body.availableResolutions,
       createdAt: new Date(date).toISOString(),
       publicationDate: resolvePublicationDate(date),
