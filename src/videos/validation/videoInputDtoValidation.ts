@@ -25,15 +25,15 @@ export const videoInputDtoValidation = (
     errors.push({ field: 'author', message: 'Invalid author' });
   }
 
-  if (typeof data.canBeDownloaded !== 'boolean') {
-    errors.push({
-      field: 'canBeDownloaded',
-      message: 'Invalid canBeDownloaded',
-    });
-  }
+  // if (typeof data.canBeDownloaded !== 'boolean') {
+  //   errors.push({
+  //     field: 'canBeDownloaded',
+  //     message: 'Invalid canBeDownloaded',
+  //   });
+  // }
 
   if (
-    !data.minAgeRestriction ||
+    // !data.minAgeRestriction ||
     (typeof data.minAgeRestriction === 'number' &&
       (data.minAgeRestriction > 18 || data.minAgeRestriction < 1))
     // typeof data.minAgeRestriction !== null

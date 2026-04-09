@@ -39,7 +39,7 @@ videosRouter
       id: db.videos.length ? db.videos[db.videos.length - 1].id + 1 : 1,
       title: req.body.title,
       author: req.body.author,
-      canBeDownloaded: req.body.canBeDownloaded,
+      canBeDownloaded: req.body.canBeDownloaded ?? true,
       minAgeRestriction: req.body.minAgeRestriction,
       availableResolutions: req.body.availableResolutions,
       createdAt: req.body.createdAt,
