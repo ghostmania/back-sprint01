@@ -17,7 +17,8 @@ export const videoInputDtoValidation = (
 
   if (
     !data.author ||
-    typeof data.author !== 'string'
+    typeof data.author !== 'string' ||
+    data.author && data.author.trim().length > 20
   ) {
     errors.push({ field: 'author', message: 'Invalid author' });
   }

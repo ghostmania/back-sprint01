@@ -100,5 +100,5 @@ videosRouter
     }
 
     db.videos.splice(index, 1);
-    res.sendStatus(HttpStatus.Ok);
+    res.sendStatus(HttpStatus.NoContent);
   });
