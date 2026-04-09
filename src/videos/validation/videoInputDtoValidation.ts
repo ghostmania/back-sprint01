@@ -69,7 +69,7 @@ export const videoInputDtoValidation = (
     for (const resolution of data.availableResolutions) {
       if (!existingResolutions.includes(resolution)) {
         errors.push({
-          field: 'resolution',
+          field: 'availableResolutions',
           message: 'Invalid resolution:' + resolution,
         });
         break;
