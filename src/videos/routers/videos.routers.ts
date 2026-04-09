@@ -14,8 +14,8 @@ videosRouter
   })
 
   .get('/:id', (req: Request, res: Response) => {
-    const id = parseInt(req.params.id as string);
-    const driver = db.videos.find((d) => d.id === id);
+    const id = req.params.id;
+    const driver = db.videos.find((d) => d.id === Number(id));
 
     if (!driver) {
       res

@@ -11,8 +11,8 @@ export const setupApp = (app: Express) => {
     res.status(200).send('Hello world!');
   });
 
-  app.use('/hometask_01/videos', videosRouter);
-  app.use('/api/testing', testingRouter);
+  app.use('/videos', videosRouter);
+  app.use('/testing', testingRouter);
 
   setupSwagger(app);
   return app;
