@@ -13,7 +13,7 @@ export const videosRouter = Router({});
 
 videosRouter
   .get('', (req: Request, res: Response) => {
-    res.status(200).send(db.videos);
+    res.status(HttpStatus.Ok).send(db.videos);
   })
 
   .get('/:id', (req: Request, res: Response) => {
@@ -28,7 +28,7 @@ videosRouter
         );
       return;
     }
-    res.status(200).send(driver);
+    res.status(HttpStatus.Ok).send(driver);
   })
   .post('', (req: Request<{}, {}, VideoInputDto>, res: Response) => {
     const errors = videoInputDtoValidation(req.body);
@@ -86,20 +86,19 @@ videosRouter
   })
 
   .delete('/:id', (req: Request, res: Response) => {
-    const id = parseInt(req.params.id as string);
+    const id = Number(req.params.id);
 
-    //ищет первый элемент, у которого функция внутри возвращает true и возвращает индекс этого элемента в массиве, если id ни у кого не совпал, то findIndex вернёт -1.
     const index = db.videos.findIndex((v) => v.id === id);
 
     if (index === -1) {
       res
         .status(HttpStatus.NotFound)
         .send(
-          createErrorMessages([{ field: 'id', message: 'Vehicle not found' }]),
+          createErrorMessages([{ field: 'id', message: 'Video not found' }]),
         );
       return;
     }
 
     db.videos.splice(index, 1);
-    res.sendStatus(HttpStatus.NoContent);
+    res.sendStatus(HttpStatus.Ok);
   });

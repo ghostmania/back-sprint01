@@ -65,7 +65,7 @@ describe('Videos API', () => {
       .expect(HttpStatus.BadRequest);
 
     expect(response.body).toEqual({
-      errorMessages: [
+      errorsMessages: [
         {
           field: 'title',
           message: expect.any(String),
@@ -84,7 +84,7 @@ describe('Videos API', () => {
       .expect(HttpStatus.BadRequest);
 
     expect(response.body).toEqual({
-      errorMessages: [
+      errorsMessages: [
         {
           field: 'author',
           message: expect.any(String),
@@ -103,7 +103,7 @@ describe('Videos API', () => {
       .expect(HttpStatus.BadRequest);
 
     expect(response.body).toEqual({
-      errorMessages: [
+      errorsMessages: [
         {
           field: 'availableResolutions',
           message: expect.any(String),
@@ -122,7 +122,7 @@ describe('Videos API', () => {
       })
       .expect(HttpStatus.BadRequest);
 
-    expect(response.body.errorMessages).toEqual(
+    expect(response.body.errorsMessages).toEqual(
       expect.arrayContaining([
         {
           field: 'title',
@@ -142,7 +142,7 @@ describe('Videos API', () => {
       })
       .expect(HttpStatus.BadRequest);
 
-    expect(response.body.errorMessages).toEqual(
+    expect(response.body.errorsMessages).toEqual(
       expect.arrayContaining([
         {
           field: 'title',
@@ -170,7 +170,7 @@ describe('Videos API', () => {
       })
       .expect(HttpStatus.BadRequest);
 
-    expect(response.body.errorMessages).toEqual(
+    expect(response.body.errorsMessages).toEqual(
       expect.arrayContaining([
         {
           field: 'author',
@@ -190,7 +190,7 @@ describe('Videos API', () => {
       })
       .expect(HttpStatus.BadRequest);
 
-    expect(response.body.errorMessages).toEqual(
+    expect(response.body.errorsMessages).toEqual(
       expect.arrayContaining([
         {
           field: 'availableResolutions',
@@ -210,7 +210,7 @@ describe('Videos API', () => {
       })
       .expect(HttpStatus.BadRequest);
 
-    expect(response.body.errorMessages).toEqual(
+    expect(response.body.errorsMessages).toEqual(
       expect.arrayContaining([
         {
           field: 'availableResolutions',
@@ -230,7 +230,7 @@ describe('Videos API', () => {
       })
       .expect(HttpStatus.BadRequest);
 
-    expect(response.body.errorMessages).toEqual(
+    expect(response.body.errorsMessages).toEqual(
       expect.arrayContaining([
         {
           field: expect.stringMatching(/resolution|availableResolutions/),
@@ -249,7 +249,7 @@ describe('Videos API', () => {
       })
       .expect(HttpStatus.BadRequest);
 
-    expect(response.body.errorMessages).toEqual(
+    expect(response.body.errorsMessages).toEqual(
       expect.arrayContaining([
         {
           field: 'canBeDownloaded',
@@ -268,7 +268,7 @@ describe('Videos API', () => {
       })
       .expect(HttpStatus.BadRequest);
 
-    expect(response.body.errorMessages).toEqual(
+    expect(response.body.errorsMessages).toEqual(
       expect.arrayContaining([
         {
           field: 'minAgeRestriction',
@@ -323,7 +323,7 @@ describe('Videos API', () => {
       .expect(HttpStatus.NotFound);
 
     expect(response.body).toEqual({
-      errorMessages: [
+      errorsMessages: [
         {
           field: 'id',
           message: expect.any(String),
@@ -347,7 +347,7 @@ describe('Videos API', () => {
       })
       .expect(HttpStatus.BadRequest);
 
-    expect(response.body.errorMessages).toEqual(
+    expect(response.body.errorsMessages).toEqual(
       expect.arrayContaining([
         {
           field: 'title',
@@ -384,7 +384,7 @@ describe('Videos API', () => {
       })
       .expect(HttpStatus.BadRequest);
 
-    expect(response.body.errorMessages).toEqual(
+    expect(response.body.errorsMessages).toEqual(
       expect.arrayContaining([
         {
           field: 'title',
@@ -421,7 +421,7 @@ describe('Videos API', () => {
       })
       .expect(HttpStatus.BadRequest);
 
-    expect(response.body.errorMessages).toEqual(
+    expect(response.body.errorsMessages).toEqual(
       expect.arrayContaining([
         {
           field: expect.stringMatching(/resolution|availableResolutions/),
